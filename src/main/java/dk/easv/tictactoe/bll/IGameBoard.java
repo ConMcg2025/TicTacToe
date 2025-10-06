@@ -42,6 +42,8 @@ public interface IGameBoard
      */
     int getWinner();
 
+    void updateBoard(char[][] board);
+
     /**
      * Resets the game to a new game state.
      */

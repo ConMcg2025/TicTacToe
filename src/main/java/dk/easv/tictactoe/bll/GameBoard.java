@@ -18,11 +18,7 @@ public class GameBoard extends TicTacViewController implements IGameBoard
      *
      * @return int Id of the next player.
      */
-    private char[][] board = {
-            {'-', '-', '-'},
-            {'-', '-', '-'},
-            {'-', '-', '-'}
-    };
+    private char[][] board;
     private int player = 0;
 
     public int getNextPlayer()
@@ -64,39 +60,53 @@ public class GameBoard extends TicTacViewController implements IGameBoard
      */
     public boolean isGameOver()
     {
-        //TODO Implement this method
-        return false;
+        if (getWinner() == 0 || getWinner() == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
+    public void updateBoard(char[][] board) {
+        this.board = board;
+    }
     /**
      * Gets the id of the winner, -1 if its a draw.
      *
      * @return int id of winner, or -1 if draw.
      */
+
+
     public int getWinner()
     {
-        int a = 0;
-        int b = 0;
-        for(Node n : gridPane.getChildren()){
-            Button btn =  (Button) n;
-            if(!btn.getText().isEmpty()) {
-                board[a][b] = btn.getText().charAt(0);
+        for (int i = 0; i < 3; i++){
+            if (board[i][0] != '-' && board[i][0] == board[i][1] && board[i][1] == board[i][2]){
+                return (board[i][0] == 'X') ? 1 : 0;
             }
-            b++;
-            if (b == 3){
-                a++;
-                b = 0;
+        }
+        for (int i = 0; i < 3; i++){
+            if (board[0][i] != '-' && board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
+                return (board[0][i] == 'X') ? 1 : 0;
             }
+        }
+        if (board[0][0] != '-' && board[0][0] == board[1][1] && board[1][1] == board[2][2]){
+            return (board[0][0] == 'X') ? 1 : 0;
+        }
+        if (board[0][2] != '-' && board[0][2] == board[1][1] && board[1][1] == board[2][0]){
+            return (board[0][2] == 'X') ? 1 : 0;
         }
         return -1;
     }
+
+
 
     /**
      * Resets the game to a new game state.
      */
     public void newGame()
     {
-        //TODO Implement this method
+        for (char[] r : board)
+            java.util.Arrays.fill(r, '-');
         player = 0;
     }
 }

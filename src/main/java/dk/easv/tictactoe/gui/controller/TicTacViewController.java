@@ -1,8 +1,8 @@
-
 package dk.easv.tictactoe.gui.controller;
 
 // Java imports
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +30,33 @@ public class TicTacViewController implements Initializable
 
     @FXML
     protected GridPane gridPane;
-    
+
     private static final String TXT_PLAYER = "Player: ";
+    private char[][] board = {
+            {'-', '-', '-'},
+            {'-', '-', '-'},
+            {'-', '-', '-'}
+    };
+    private int a = 0;
+    private int b = 0;
     private IGameBoard game;
+
+    public void updateCurBoard(){
+        for(Node n : gridPane.getChildren()) {
+            Button uqBtn = (Button) n;
+            if (!uqBtn.getText().isEmpty()) {
+                board[a][b] = uqBtn.getText().charAt(0);
+            }
+            b++;
+            if (b == 3) {
+                a++;
+                b = 0;
+            }
+            if (a == 3) {
+                a = 0;
+            }
+        }
+    }
 
     /**
      * Event handler for the grid buttons
@@ -51,24 +75,31 @@ public class TicTacViewController implements Initializable
             int player = game.getNextPlayer();
             if (game.play(c, r))
             {
+                Button btn = (Button) event.getSource();
+                if(btn.getText().isEmpty()) {
+                    String xOrO = player == 0 ? "X" : "O";
+                    btn.setText(xOrO);
+                    setPlayer();
+                    updateCurBoard();
+                }
                 if (game.isGameOver())
                 {
-                    int winner = game.getWinner();
-                    displayWinner(winner);
-                }
-                else
-                {
-                    Button btn = (Button) event.getSource();
-                    if(btn.getText().isEmpty()) {
-                        String xOrO = player == 0 ? "X" : "O";
-                        btn.setText(xOrO);
-                        setPlayer();
+                    displayWinner(game.getWinner());
+                    for (Node n : gridPane.getChildren()) {
+                        ((Button) n).setDisable(true);
                     }
                 }
+                game.updateBoard(board);
             }
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void disableButtons(boolean disable){
+        for (Node n : gridPane.getChildren()) {
+            n.setDisable(disable);
         }
     }
 
@@ -83,6 +114,7 @@ public class TicTacViewController implements Initializable
         game.newGame();
         setPlayer();
         clearBoard();
+        disableButtons(false);
     }
 
     /**
@@ -100,6 +132,7 @@ public class TicTacViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         game = new GameBoard();
+        game.updateBoard(board);
         setPlayer();
     }
 
