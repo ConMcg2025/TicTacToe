@@ -60,16 +60,25 @@ public class GameBoard extends TicTacViewController implements IGameBoard
      */
     public boolean isGameOver()
     {
-        if (getWinner() == 0 || getWinner() == 1){
-            return true;
-        }else{
-            return false;
-        }
+        int winner = getWinner();
+        return (winner == 0 || winner == 1 ||  winner == -1);
     }
 
     public void updateBoard(char[][] board) {
         this.board = board;
     }
+
+    private boolean isBoardFull(){
+        for (char[] chars : board) {
+            for (int j = 0; j < board.length; j++) {
+                if (chars[j] == '-') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * Gets the id of the winner, -1 if its a draw.
      *
@@ -95,7 +104,10 @@ public class GameBoard extends TicTacViewController implements IGameBoard
         if (board[0][2] != '-' && board[0][2] == board[1][1] && board[1][1] == board[2][0]){
             return (board[0][2] == 'X') ? 1 : 0;
         }
-        return -1;
+        if (isBoardFull()){
+            return -1;
+        }
+        return 99;
     }
 
 
