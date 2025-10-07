@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" stylesheets="/css/gamemode.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="298.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.tictactoe.gui.controller.GamemodeController">
+   <children>
+      <Label text="Choose your gamemode">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="100.0" />
+         </VBox.margin>
+      </Label>
+      <ChoiceBox prefWidth="150.0" fx:id="modeBox">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Normal" />
+                  <String fx:value="Hardcore" />
+                  <String fx:value="Streak" />
+                  <String fx:value="Fast Thinker" />
+              </FXCollections>
+          </items>
+      </ChoiceBox>
+      <Button mnemonicParsing="false" onAction="#launchGamemode" prefHeight="25.0" prefWidth="70.0" text="Play">
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

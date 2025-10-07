@@ -88,24 +88,24 @@ public class GameBoard extends TicTacViewController implements IGameBoard
 
     public int getWinner()
     {
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++){ // Get clumns
             if (board[i][0] != '-' && board[i][0] == board[i][1] && board[i][1] == board[i][2]){
                 return (board[i][0] == 'X') ? 1 : 0;
             }
         }
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++){ // Get Rows
             if (board[0][i] != '-' && board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
                 return (board[0][i] == 'X') ? 1 : 0;
             }
         }
-        if (board[0][0] != '-' && board[0][0] == board[1][1] && board[1][1] == board[2][2]){
+        if (board[0][0] != '-' && board[0][0] == board[1][1] && board[1][1] == board[2][2]){ // Check diagonally
             return (board[0][0] == 'X') ? 1 : 0;
         }
-        if (board[0][2] != '-' && board[0][2] == board[1][1] && board[1][1] == board[2][0]){
+        if (board[0][2] != '-' && board[0][2] == board[1][1] && board[1][1] == board[2][0]){ // Check diagonally the other way
             return (board[0][2] == 'X') ? 1 : 0;
         }
-        if (isBoardFull()){
-            return -1;
+        if (isBoardFull()){ // Ask method to know if the board is full or not
+            return -1; // Draw
         }
         return 99;
     }
@@ -117,8 +117,8 @@ public class GameBoard extends TicTacViewController implements IGameBoard
      */
     public void newGame()
     {
-        for (char[] r : board)
+        for (char[] r : board) // If new game reset the board to '-'
             java.util.Arrays.fill(r, '-');
-        player = 0;
+        player = 0; // Set first player
     }
 }

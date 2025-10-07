@@ -1,5 +1,19 @@
-#pane {
-    -fx-background-image: url(../images/background.jpg);
-    -fx-background-repeat: stretch;   
-    -fx-background-position: center;
+.pane {
+    -fx-background-color: rgb(43, 45, 48);
+}
+
+.button{
+    -fx-background-color: rgb(30, 31, 34);
+}
+
+.button:hover{
+    -fx-background-color: rgb(39, 39, 43);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.button:pressed{
+    -fx-background-color: rgb(31, 31, 35);
+    -fx-scale-x: .95;
+    -fx-scale-y: .95;
 }

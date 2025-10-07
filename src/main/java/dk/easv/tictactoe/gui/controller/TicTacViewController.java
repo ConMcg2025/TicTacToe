@@ -4,6 +4,8 @@ package dk.easv.tictactoe.gui.controller;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.layout.GridPane;
 // Project imports
 import dk.easv.tictactoe.bll.GameBoard;
 import dk.easv.tictactoe.bll.IGameBoard;
+import javafx.util.Duration;
 
 /**
  *
@@ -128,12 +131,34 @@ public class TicTacViewController implements Initializable
      * The resources used to localize the root object, or {@code null} if
      * the root object was not localized.
      */
+
+    private void addHoverAnimation(Button btn) {
+        btn.setOnMouseEntered(event -> { //Type of event (Checks if cursor is on the button)
+            ScaleTransition scaleTr = new ScaleTransition(Duration.millis(150), btn); // What do we want to animate (Scale)
+            scaleTr.setToX(1.1); // Change X to 1.1 (onHover)
+            scaleTr.setToY(1.1); // Change Y to 1.1 (onHover)
+            scaleTr.play(); // Play the animation
+        });
+
+        btn.setOnMouseExited(event -> { // (Cursor leaves the button)
+            ScaleTransition scaleTr = new ScaleTransition(Duration.millis(150), btn); // -||-
+            scaleTr.setToX(1.0);
+            scaleTr.setToY(1.0);
+            scaleTr.play();
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         game = new GameBoard();
         game.updateBoard(board);
         setPlayer();
+        for (Node n : gridPane.getChildren()) { // Get everything from the gridPane (parent)
+            if (n instanceof Button btn) { // We are looking for the buttons to add the animation so we add this if statement
+                addHoverAnimation(btn); // Use our method to add the smooth animation to our buttons
+            }
+        }
     }
 
     /**
@@ -169,7 +194,7 @@ public class TicTacViewController implements Initializable
      */
     private void clearBoard()
     {
-        for(Node n : gridPane.getChildren())
+        for(Node n : gridPane.getChildren()) // Gets every button
         {
             Button btn = (Button) n;
             btn.setText("");
