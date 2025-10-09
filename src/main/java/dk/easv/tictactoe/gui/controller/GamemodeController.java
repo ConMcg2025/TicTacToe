@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,17 +13,22 @@ public class GamemodeController {
     @FXML
     private ChoiceBox<String> modeBox;
 
+    public void openWindow(String mode) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/"+ mode +"View.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Tic Tac Toe | "+ mode +" Mode");
+        stage.setResizable(false);
+        stage.show();
+    }
+
     public void launchGamemode() throws IOException {
         if (Objects.equals(modeBox.getValue(), "Normal")) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/TicTacView.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Tic Tac Toe | Normal Mode");
-            stage.setResizable(false);
-            stage.show();
-        }else{
-            System.out.println("failed");
+            openWindow("Normal");
+        }
+        if (Objects.equals(modeBox.getValue(), "Hardcore")) {
+            openWindow("Hardcore");
         }
 
     }

@@ -1,10 +1,8 @@
 package dk.easv.tictactoe.gui.controller;
 
-// Java imports
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-
+import dk.easv.tictactoe.bll.GameBoard;
+import dk.easv.tictactoe.bll.IGameBoard;
+import dk.easv.tictactoe.bll.TicTacAI;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,18 +11,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-
-// Project imports
-import dk.easv.tictactoe.bll.GameBoard;
-import dk.easv.tictactoe.bll.IGameBoard;
 import javafx.util.Duration;
 
-/**
- *
- * @author EASV
- */
-public class TicTacViewController implements Initializable
-{
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class HardcoreController implements Initializable {
     @FXML
     private Label lblPlayer;
 
@@ -33,33 +25,25 @@ public class TicTacViewController implements Initializable
 
     @FXML
     protected GridPane gridPane;
-
+    TicTacAI ai = new TicTacAI('O', 'X');
     private static final String TXT_PLAYER = "Player: ";
     private char[][] board = {
             {'-', '-', '-'},
             {'-', '-', '-'},
             {'-', '-', '-'}
     };
-    private int a = 0;
-    private int b = 0;
     private IGameBoard game;
 
-    public void updateCurBoard(){
+    private void updateCurBoard(){
+        int row = 0, col = 0;
         for(Node n : gridPane.getChildren()) {
             Button uqBtn = (Button) n;
-            if (!uqBtn.getText().isEmpty()) {
-                board[a][b] = uqBtn.getText().charAt(0);
-            }
-            b++;
-            if (b == 3) {
-                a++;
-                b = 0;
-            }
-            if (a == 3) {
-                a = 0;
-            }
+            board[row][col] = uqBtn.getText().isEmpty() ? '-' : uqBtn.getText().charAt(0);
+            col++;
+            if (col == 3) { row++; col = 0; }
         }
     }
+
 
     /**
      * Event handler for the grid buttons
@@ -67,38 +51,44 @@ public class TicTacViewController implements Initializable
      * @param event
      */
     @FXML
-    private void handleButtonAction(ActionEvent event)
-    {
-        try
-        {
-            Integer row = GridPane.getRowIndex((Node) event.getSource());
-            Integer col = GridPane.getColumnIndex((Node) event.getSource());
-            int r = (row == null) ? 0 : row;
-            int c = (col == null) ? 0 : col;
-            int player = game.getNextPlayer();
-            if (game.play(c, r))
-            {
-                Button btn = (Button) event.getSource();
-                if(btn.getText().isEmpty()) {
-                    String xOrO = player == 0 ? "X" : "O";
-                    btn.setText(xOrO);
-                    setPlayer();
-                    updateCurBoard();
-                }
-                if (game.isGameOver())
-                {
-                    displayWinner(game.getWinner());
-                    for (Node n : gridPane.getChildren()) {
-                        ((Button) n).setDisable(true);
-                    }
-                }
-                game.updateBoard(board);
+    private void handleButtonAction(ActionEvent event) {
+        try {
+            Button btn = (Button) event.getSource();
+            if (!btn.getText().isEmpty()) return;
+
+            btn.setText("X");
+            updateCurBoard();
+
+            int[] aiMove = ai.getBestMove(board);
+            board[aiMove[0]][aiMove[1]] = 'O';
+            updateButtonAt(aiMove[0], aiMove[1], "O");
+
+            if (game.isGameOver()) {
+                displayWinner(game.getWinner());
+                disableButtons(true);
             }
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+    /**
+     * Helper method to update a button at a given row/column with a symbol
+     */
+    private void updateButtonAt(int row, int col, String symbol) {
+        for (Node n : gridPane.getChildren()) {
+            Integer r = GridPane.getRowIndex(n);
+            Integer c = GridPane.getColumnIndex(n);
+            int rIndex = (r == null) ? 0 : r;
+            int cIndex = (c == null) ? 0 : c;
+            if (rIndex == row && cIndex == col) {
+                ((Button) n).setText(symbol);
+                break;
+            }
+        }
+    }
+
 
     public void disableButtons(boolean disable){
         for (Node n : gridPane.getChildren()) {
