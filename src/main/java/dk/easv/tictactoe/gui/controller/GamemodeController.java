@@ -27,6 +27,9 @@ public class GamemodeController {
         if (Objects.equals(modeBox.getValue(), "Normal")) {
             openWindow("Normal");
         }
+        if (Objects.equals(modeBox.getValue(), "Easy")) {
+            openWindow("Easy");
+        }
         if (Objects.equals(modeBox.getValue(), "Hardcore")) {
             openWindow("Hardcore");
         }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.tictactoe.gui.controller.EasyController">
+   <center>
+      <GridPane fx:id="gridPane" hgap="4.0" maxHeight="300.0" maxWidth="300.0" vgap="4.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button id="gridPane" fx:id="btn1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="66.0" prefWidth="128.0" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button id="gridPane" fx:id="btn2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button id="gridPane" fx:id="btn3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.columnIndex="2">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button id="gridPane" fx:id="btn4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button id="gridPane" fx:id="btn5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button fx:id="btn6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button id="gridPane" fx:id="btn7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button id="gridPane" fx:id="btn8" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+            <Button id="gridPane" fx:id="btn9" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="28.0" />
+               </font></Button>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+   <top>
+      <Label fx:id="lblPlayer" text="1" textFill="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+      </Label>
+   </top>
+   <bottom>
+      <Button id="gridPane" fx:id="btnNewGame" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="25.0" prefWidth="146.0" text="New Game" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</BorderPane>
